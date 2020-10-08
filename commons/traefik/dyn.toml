@@ -1,0 +1,48 @@
+[http]
+  [http.routers]
+
+  # [http.routers.router-example]
+  #   rule = "Host(`arthurphilippe.me`)"
+  #   entryPoints = ["websecure"]
+  #   [http.routers.router-example.tls]
+  #     certResolver = "le"
+  #     [[http.routers.router-example.tls.domains]]
+  #       main = "arthurphilippe.me"
+  #       sans = ["*.arthurphilippe.me"]
+
+    [http.routers.traefik]
+    rule        = "Host(`traefik.devops.eriizu.fr`)"
+    service     = "api@internal"
+    middlewares = ["adm-auth"]
+    entryPoints = ["websecure"]
+
+      [http.routers.traefik.tls]
+      certResolver = "le"
+
+    [http.routers.hooks]
+    rule        = "Host(`hooks.devops.eriizu.fr`)"
+    entryPoints = ["websecure"]
+    service     = "hooks@file"
+
+      [http.routers.hooks.tls]
+      certResolver = "le"
+
+    [http.routers.insecure]
+    rule        = "hostregexp(`{host:.+}`)"
+    service     = "api@internal"
+    middlewares = ["secure-redirect"]
+    entryPoints = ["web"]
+
+
+  [http.services]
+    [http.services.hooks]
+      [http.services.hooks.loadbalancer.server]
+      adress = "127.0.0.1:9000/"
+
+
+  [http.middlewares]
+      [http.middlewares.adm-auth.digestAuth]
+      usersFile = "/etc/traefik/pass"
+
+      [http.middlewares.secure-redirect.redirectScheme]
+      scheme = "https"

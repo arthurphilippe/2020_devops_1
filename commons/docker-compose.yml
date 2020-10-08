@@ -1,0 +1,51 @@
+version: "3.3"
+
+services:
+  traefik:
+    image: "traefik:cantal"
+    container_name: "traefik"
+    network_mode: host
+    env_file: ovh.ini
+    restart: always
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "./traefik:/etc/traefik:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  whoami:
+    image: "containous/whoami"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.devops.eriizu.fr`)"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.whoami.tls.certresolver=le"
+
+  db:
+    image: mongo
+    restart: always
+    # command: --config /etc/mongo/mongod.conf
+    volumes:
+      - "./letsencrypt/ssl:/etc/ssl:ro"
+      - "mongodata:/data/db"
+      - "backups:/data/backups"
+      - "./mongo/mongod.yml:/etc/mongo/mongod.conf:ro"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: exploit
+      MONGO_INITDB_ROOT_PASSWORD: pavé breton
+    # ports:
+    #   - "27017:27017"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.mongo.rule=HostSNI(`mongo.devops.eriizu.fr`)"
+      - "traefik.tcp.routers.mongo.tls=true"
+      - "traefik.tcp.routers.mongo.entrypoints=web"
+      - "traefik.tcp.services.mongo.loadbalancer.server.port=27017"
+  # backups:
+
+volumes:
+  mongodata:
+  backups:
+    external: true
+
+networks:
+  database:

@@ -1,0 +1,36 @@
+[providers]
+  [providers.docker]
+  useBindPortIP    = true
+  exposedbydefault = "false"
+
+  [providers.file]
+  watch    = true
+  filename = "/etc/traefik/dyn.toml"
+
+[entryPoints]
+  [entryPoints.web]
+  address = ":80"
+
+  [entryPoints.websecure]
+  address = ":443"
+
+[accessLog]
+
+
+[api]
+dashboard = true
+debug     = true
+
+
+[certificatesResolvers]
+  [certificatesResolvers.le]
+    [certificatesResolvers.le.acme]
+    # caserver="https://acme-staging-v02.api.letsencrypt.org/directory"
+    email   = "arthur.philippe@epitech.com"
+    storage = "/letsencrypt/acme.json"
+
+    # [certificatesResolvers.le.acme.dnsChallenge]
+    #   provider="ovh"
+
+      [certificatesResolvers.le.acme.httpChallenge]
+      entryPoint = "web"
