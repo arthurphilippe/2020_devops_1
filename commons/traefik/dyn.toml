@@ -11,7 +11,7 @@
   #       sans = ["*.arthurphilippe.me"]
 
     [http.routers.traefik]
-    rule        = "Host(`traefik.devops.eriizu.fr`)"
+    rule        = "Host(`traefik.malaclypse.eriizu.fr`)"
     service     = "api@internal"
     middlewares = ["adm-auth"]
     entryPoints = ["websecure"]
@@ -20,7 +20,7 @@
       certResolver = "le"
 
     [http.routers.hooks]
-    rule        = "Host(`hooks.devops.eriizu.fr`)"
+    rule        = "Host(`hooks.malaclypse.eriizu.fr`)"
     entryPoints = ["websecure"]
     service     = "hooks@file"
 
