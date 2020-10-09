@@ -15,7 +15,7 @@ services:
     image: "containous/whoami"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.devops.eriizu.fr`)"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.malaclypse.eriizu.fr`)"
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=le"
 
@@ -35,7 +35,7 @@ services:
     #   - "27017:27017"
     labels:
       - "traefik.enable=true"
-      - "traefik.tcp.routers.mongo.rule=HostSNI(`mongo.devops.eriizu.fr`)"
+      - "traefik.tcp.routers.mongo.rule=HostSNI(`mongo.malaclypse.eriizu.fr`)"
       - "traefik.tcp.routers.mongo.tls=true"
       - "traefik.tcp.routers.mongo.entrypoints=web"
       - "traefik.tcp.services.mongo.loadbalancer.server.port=27017"
@@ -45,6 +45,5 @@ volumes:
   mongodata:
   backups:
     external: true
-
-networks:
-  database:
+# networks:
+#   database:
