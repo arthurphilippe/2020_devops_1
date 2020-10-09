@@ -5,7 +5,6 @@ services:
     image: "traefik:cantal"
     container_name: "traefik"
     network_mode: host
-    env_file: ovh.ini
     restart: always
     volumes:
       - "./letsencrypt:/letsencrypt"
