@@ -1,8 +1,8 @@
 [
   {
-    "id": "définir un id lolilo",
-    "execute-command": "/home/exploit/définir un id lolilo/deploy.sh",
-    "command-working-directory": "/home/exploit/définir un id lolilo",
+    "id": "federator",
+    "execute-command": "/projects/federator/deploy.sh",
+    "command-working-directory": "/projects/federator",
     "pass-arguments-to-command": [
       {
         "source": "payload",
@@ -14,7 +14,7 @@
         {
           "match": {
             "type": "payload-hash-sha1",
-            "secret": "définir un secret lolilo",
+            "secret": "pave breton",
             "parameter": {
               "source": "header",
               "name": "X-Hub-Signature"
@@ -24,7 +24,42 @@
         {
           "match": {
             "type": "value",
-            "value": "refs/heads/master",
+            "value": "refs/heads/main",
+            "parameter": {
+              "source": "payload",
+              "name": "ref"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "federator-dev",
+    "execute-command": "/projects/federator/deploy-dev.sh",
+    "command-working-directory": "/projects/federator",
+    "pass-arguments-to-command": [
+      {
+        "source": "payload",
+        "name": "ref"
+      }
+    ],
+    "trigger-rule": {
+      "and": [
+        {
+          "match": {
+            "type": "payload-hash-sha1",
+            "secret": "pave breton",
+            "parameter": {
+              "source": "header",
+              "name": "X-Hub-Signature"
+            }
+          }
+        },
+        {
+          "match": {
+            "type": "value",
+            "value": "refs/heads/dev",
             "parameter": {
               "source": "payload",
               "name": "ref"

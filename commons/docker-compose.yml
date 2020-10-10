@@ -19,6 +19,20 @@ services:
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=le"
 
+  webhook:
+    image: "almir/webhook"
+    container_name: "webhook"
+    restart: always
+    command: ["-hooks=/etc/webhook.conf.json", "-hotreload", "-verbose"]
+    volumes:
+      - "./webhook.conf.json:/etc/webhook.conf.json"
+      - "/home/exploit/federator/:/projects/federator:ro"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hooks.rule=Host(`hooks.malaclypse.eriizu.fr`)"
+      - "traefik.http.routers.hooks.entrypoints=websecure"
+      - "traefik.http.routers.hooks.tls.certresolver=le"
+
   db:
     image: mongo
     restart: always
