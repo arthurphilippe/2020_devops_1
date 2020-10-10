@@ -32,6 +32,7 @@ services:
       - "traefik.http.routers.hooks.rule=Host(`hooks.malaclypse.eriizu.fr`)"
       - "traefik.http.routers.hooks.entrypoints=websecure"
       - "traefik.http.routers.hooks.tls.certresolver=le"
+      - "traefik.http.services.hooks.loadbalancer.server.port=9000"
 
   db:
     image: mongo
