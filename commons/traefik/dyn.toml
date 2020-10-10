@@ -19,10 +19,10 @@
       [http.routers.traefik.tls]
       certResolver = "le"
 
-    [http.routers.hooks]
-    rule        = "Host(`hooks.malaclypse.eriizu.fr`)"
-    entryPoints = ["websecure"]
-    service     = "hooks@file"
+      # [http.routers.hooks]
+      # rule        = "Host(`hooks.malaclypse.eriizu.fr`)"
+      # entryPoints = ["websecure"]
+      # service     = "hooks@file"
 
       [http.routers.hooks.tls]
       certResolver = "le"
@@ -35,9 +35,9 @@
 
 
   [http.services]
-    [http.services.hooks]
-      [http.services.hooks.loadbalancer.server]
-      adress = "127.0.0.1:9000/"
+  # [http.services.hooks]
+  #   [http.services.hooks.loadbalancer.server]
+  #   adress = "127.0.0.1:9000/"
 
 
   [http.middlewares]
