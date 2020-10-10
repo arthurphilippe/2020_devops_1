@@ -53,7 +53,7 @@ services:
       - "traefik.enable=true"
       - "traefik.tcp.routers.mongo.rule=HostSNI(`mongo.malaclypse.eriizu.fr`)"
       - "traefik.tcp.routers.mongo.tls=true"
-      - "traefik.tcp.routers.mongo.entrypoints=web"
+      - "traefik.tcp.routers.mongo.entrypoints=websecure"
       - "traefik.tcp.services.mongo.loadbalancer.server.port=27017"
   # backups:
 
