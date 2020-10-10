@@ -24,8 +24,6 @@
       # entryPoints = ["websecure"]
       # service     = "hooks@file"
 
-      [http.routers.hooks.tls]
-      certResolver = "le"
 
     [http.routers.insecure]
     rule        = "hostregexp(`{host:.+}`)"
