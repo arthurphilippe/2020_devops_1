@@ -27,6 +27,7 @@ services:
     volumes:
       - "./webhook.conf.json:/etc/webhook.conf.json"
       - "/home/exploit/federator/:/projects/federator:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.hooks.rule=Host(`hooks.malaclypse.eriizu.fr`)"
