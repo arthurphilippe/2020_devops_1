@@ -26,7 +26,7 @@ services:
     command: ["-hooks=/etc/webhook.conf.json", "-hotreload", "-verbose"]
     volumes:
       - "./webhook.conf.json:/etc/webhook.conf.json"
-      - "/home/exploit/federator/:/projects/federator:ro"
+      - "/home/exploit/federator/:/projects/federator"
       - "/var/run/docker.sock:/var/run/docker.sock"
     labels:
       - "traefik.enable=true"
