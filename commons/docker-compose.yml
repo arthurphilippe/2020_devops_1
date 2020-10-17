@@ -15,51 +15,42 @@ services:
     image: "containous/whoami"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.malaclypse.eriizu.fr`)"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.capuchon.eriizu.fr`)"
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=le"
 
-  webhook:
-    image: "almir/webhook"
-    container_name: "webhook"
-    restart: always
-    command: ["-hooks=/etc/webhook.conf.json", "-hotreload", "-verbose"]
+  youtube-dl:
+    image: "kmb32123/youtube-dl-server"
     volumes:
-      - "./webhook.conf.json:/etc/webhook.conf.json"
-      - "/home/exploit/federator/:/projects/federator"
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.hooks.rule=Host(`hooks.malaclypse.eriizu.fr`)"
-      - "traefik.http.routers.hooks.entrypoints=websecure"
-      - "traefik.http.routers.hooks.tls.certresolver=le"
-      - "traefik.http.services.hooks.loadbalancer.server.port=9000"
-
-  db:
-    image: mongo
+      - /srv/ftp/videos:/youtube-dl
     restart: always
-    # command: --config /etc/mongo/mongod.conf
-    volumes:
-      - "./letsencrypt/ssl:/etc/ssl:ro"
-      - "mongodata:/data/db"
-      - "backups:/data/backups"
-      - "./mongo/mongod.yml:/etc/mongo/mongod.conf:ro"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: exploit
-      MONGO_INITDB_ROOT_PASSWORD: pavé breton
-    # ports:
-    #   - "27017:27017"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.tcp.routers.mongo.rule=HostSNI(`mongo.malaclypse.eriizu.fr`)"
-      - "traefik.tcp.routers.mongo.tls=true"
-      - "traefik.tcp.routers.mongo.entrypoints=websecure"
-      - "traefik.tcp.services.mongo.loadbalancer.server.port=27017"
-  # backups:
-
-volumes:
-  mongodata:
-  backups:
-    external: true
-# networks:
-#   database:
+  # ftp:
+  #   image: fauria/vsftpd
+  #   container_name: ftp
+  #   ports:
+  #     - "20:20"
+  #     - "21:21"
+  #     - "21100-21110:21100-21110"
+  #   environment:
+  #     - "FTP_USER=exploit"
+  #     - "FTP_PASS=lingette"
+  #     - "PASV_ADDRESS=91.165.50.197"
+  #     - "PASV_MIN_PORT=21100"
+  #     - "PASV_MAX_PORT=21110"
+  #   volumes:
+  #     - /srv/ftp/videos:/home/vsftpd
+  # webhook:
+  #   image: "almir/webhook"
+  #   container_name: "webhook"
+  #   restart: always
+  #   command: ["-hooks=/etc/webhook.conf.json", "-hotreload", "-verbose"]
+  #   volumes:
+  #     - "./webhook.conf.json:/etc/webhook.conf.json"
+  #     - "/home/exploit/federator/:/projects/federator"
+  #     - "/var/run/docker.sock:/var/run/docker.sock"
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.hooks.rule=Host(`hooks.capuchon.eriizu.fr`)"
+  #     - "traefik.http.routers.hooks.entrypoints=websecure"
+  #     - "traefik.http.routers.hooks.tls.certresolver=le"
+  #     - "traefik.http.services.hooks.loadbalancer.server.port=9000"
