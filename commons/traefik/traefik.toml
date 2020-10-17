@@ -16,6 +16,8 @@
 
 [accessLog]
 
+[pilot]
+token = "c122898e-e7f2-4f93-b42f-05673d01daaa"
 
 [api]
 dashboard = true
@@ -26,7 +28,7 @@ debug     = true
   [certificatesResolvers.le]
     [certificatesResolvers.le.acme]
     # caserver="https://acme-staging-v02.api.letsencrypt.org/directory"
-    email   = "arthur.philippe@epitech.com"
+    email   = "elise.ph@icloud.com"
     storage = "/letsencrypt/acme.json"
 
     # [certificatesResolvers.le.acme.dnsChallenge]

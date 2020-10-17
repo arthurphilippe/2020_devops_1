@@ -2,12 +2,11 @@ version: "3.3"
 
 services:
   traefik:
-    image: "traefik:cantal"
+    image: "traefik:picodon"
     container_name: "traefik"
     network_mode: host
     restart: always
     volumes:
-      - "./letsencrypt:/letsencrypt"
       - "./traefik:/etc/traefik:ro"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
@@ -24,6 +23,19 @@ services:
     volumes:
       - /srv/ftp/videos:/youtube-dl
     restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ytdl.rule=Host(`ytdl.capuchon.eriizu.fr`)"
+      - "traefik.http.routers.ytdl.entrypoints=websecure"
+      - "traefik.http.routers.ytdl.tls.certresolver=le"
+      - "traefik.http.services.ytdla.loadbalancer.server.port=8080"
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:/config.json
+    command: --interval 30
   # ftp:
   #   image: fauria/vsftpd
   #   container_name: ftp

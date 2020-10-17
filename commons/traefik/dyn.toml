@@ -1,15 +1,6 @@
 [http]
   [http.routers]
 
-  # [http.routers.router-example]
-  #   rule = "Host(`arthurphilippe.me`)"
-  #   entryPoints = ["websecure"]
-  #   [http.routers.router-example.tls]
-  #     certResolver = "le"
-  #     [[http.routers.router-example.tls.domains]]
-  #       main = "arthurphilippe.me"
-  #       sans = ["*.arthurphilippe.me"]
-
     [http.routers.traefik]
     rule        = "Host(`traefik.malaclypse.eriizu.fr`)"
     service     = "api@internal"
@@ -19,23 +10,12 @@
       [http.routers.traefik.tls]
       certResolver = "le"
 
-      # [http.routers.hooks]
-      # rule        = "Host(`hooks.malaclypse.eriizu.fr`)"
-      # entryPoints = ["websecure"]
-      # service     = "hooks@file"
-
-
     [http.routers.insecure]
+    # Redicrect insecure http trafic.
     rule        = "hostregexp(`{host:.+}`)"
     service     = "api@internal"
     middlewares = ["secure-redirect"]
     entryPoints = ["web"]
-
-
-  [http.services]
-  # [http.services.hooks]
-  #   [http.services.hooks.loadbalancer.server]
-  #   adress = "127.0.0.1:9000/"
 
 
   [http.middlewares]
@@ -43,4 +23,5 @@
       usersFile = "/etc/traefik/pass"
 
       [http.middlewares.secure-redirect.redirectScheme]
+      # Redicrect insecure http trafic.
       scheme = "https"
