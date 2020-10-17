@@ -2,7 +2,7 @@
   [http.routers]
 
     [http.routers.traefik]
-    rule        = "Host(`traefik.malaclypse.eriizu.fr`)"
+    rule        = "Host(`traefik.capuchon.eriizu.fr`)"
     service     = "api@internal"
     middlewares = ["adm-auth"]
     entryPoints = ["websecure"]
