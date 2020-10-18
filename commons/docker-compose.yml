@@ -37,14 +37,25 @@ services:
       - /root/.docker/config.json:/config.json
     command: --interval 30
 
-  drive:
-    image: cozy/cozy-stack:latest
+  sftp:
+    build: /home/exploit/sftp
+    volumes:
+      - /srv/upload:/home/public/upload
+    ports:
+      - "2222:22"
+    command: public:lingette:1001
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.drive.rule=Host(`drive.capuchon.eriizu.fr`)"
-      - "traefik.http.routers.drive.entrypoints=websecure"
-      - "traefik.http.routers.drive.tls.certresolver=le"
-      - "traefik.http.services.ytdla.loadbalancer.server.port=8080"
+      - "traefik.tcp.routers.sftp.entrypoints=sftp"
+      - "traefik.tcp.services.sftp.loadbalancer.server.port=22"
+  # drive:
+  #   image: cozy/cozy-stack:latest
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.drive.rule=Host(`drive.capuchon.eriizu.fr`)"
+  #     - "traefik.http.routers.drive.entrypoints=websecure"
+  #     - "traefik.http.routers.drive.tls.certresolver=le"
+  #     - "traefik.http.services.ytdla.loadbalancer.server.port=8080"
   # ftp:
   #   image: fauria/vsftpd
   #   container_name: ftp
