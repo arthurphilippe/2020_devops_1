@@ -50,7 +50,7 @@ services:
       - "traefik.enable=true"
       - "traefik.tcp.routers.sftp1.entrypoints=sftp"
       - "traefik.tcp.routers.sftp1.tls=false"
-      - "traefik.tcp.routers.sftp1.rule=*"
+      # - "traefik.tcp.routers.sftp1.rule=*"
       - "traefik.tcp.routers.sftp1.service=sftp01"
       - "traefik.tcp.services.sftp01.loadbalancer.server.port=22"
   # drive:
