@@ -49,7 +49,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.tcp.routers.sftp1.entrypoints=sftp"
-      - "traefik.tcp.routers.sftp1.service=sftp"
+      - "traefik.tcp.routers.sftp1.service=sftp01"
       - "traefik.tcp.services.sftp01.loadbalancer.server.port=22"
   # drive:
   #   image: cozy/cozy-stack:latest
