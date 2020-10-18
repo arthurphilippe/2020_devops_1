@@ -40,7 +40,7 @@ services:
   sftp:
     build:
       context: /home/exploit/sftp
-      dockerfile: Dockerfile-alpine
+      dockerfile: Dockerfile
     volumes:
       - /srv/upload:/home/public/upload
     ports:
