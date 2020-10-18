@@ -48,9 +48,9 @@ services:
     command: public:lingette:1001
     labels:
       - "traefik.enable=true"
-      - "traefik.tcp.routers.sftp.entrypoints=sftp"
-      - "traefik.tcp.routers.sftp.service=sftp"
-      - "traefik.tcp.services.sftp.loadbalancer.server.port=22"
+      - "traefik.tcp.routers.sftp1.entrypoints=sftp"
+      - "traefik.tcp.routers.sftp1.service=sftp"
+      - "traefik.tcp.services.sftp01.loadbalancer.server.port=22"
   # drive:
   #   image: cozy/cozy-stack:latest
   #   labels:
