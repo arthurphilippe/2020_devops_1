@@ -43,8 +43,8 @@ services:
       dockerfile: Dockerfile
     volumes:
       - /srv/upload:/home/public/upload
-    ports:
-      - "2222:22"
+    # ports:
+    #   - "2222:22"
     command: public:lingette:1001
     labels:
       - "traefik.enable=true"
