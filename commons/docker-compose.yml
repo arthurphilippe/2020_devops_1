@@ -18,17 +18,17 @@ services:
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=le"
 
-  youtube-dl:
-    image: "kmb32123/youtube-dl-server"
-    volumes:
-      - /srv/ftp/videos:/youtube-dl
-    restart: always
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.ytdl.rule=Host(`ytdl.capuchon.eriizu.fr`)"
-      - "traefik.http.routers.ytdl.entrypoints=websecure"
-      - "traefik.http.routers.ytdl.tls.certresolver=le"
-      - "traefik.http.services.ytdla.loadbalancer.server.port=8080"
+  # youtube-dl:
+  #   image: "kmb32123/youtube-dl-server"
+  #   volumes:
+  #     - /srv/ftp/videos:/youtube-dl
+  #   restart: always
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.ytdl.rule=Host(`ytdl.capuchon.eriizu.fr`)"
+  #     - "traefik.http.routers.ytdl.entrypoints=websecure"
+  #     - "traefik.http.routers.ytdl.tls.certresolver=le"
+  #     - "traefik.http.services.ytdla.loadbalancer.server.port=8080"
 
   watchtower:
     image: containrrr/watchtower
