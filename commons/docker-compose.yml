@@ -38,7 +38,9 @@ services:
     command: --interval 30
 
   sftp:
-    build: /home/exploit/sftp
+    build:
+      context: /home/exploit/sftp
+      dockerfile: Dockerfile-alpine
     volumes:
       - /srv/upload:/home/public/upload
     ports:
